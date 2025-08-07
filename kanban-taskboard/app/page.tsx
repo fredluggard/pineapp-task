@@ -40,6 +40,9 @@ export default function Home() {
     return saved ? JSON.parse(saved) : defaultColumns;
   });
   const [activeItem, setActiveItem] = useState<null | TaskItem>(null);
+  const [currentColumnId, setCurrentColumnId] = useState<
+    keyof BoxesState | null
+  >(null);
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -127,7 +130,7 @@ export default function Home() {
       setColumns(updatedColumns);
       setEditId(null);
       setIsEditing(false);
-    } else {
+    } else if (currentColumnId) {
       const newItem: TaskItem = {
         id: Date.now().toString(),
         title: newTitle,
@@ -136,9 +139,14 @@ export default function Home() {
 
       setColumns((prev) => ({
         ...prev,
-        todo: [newItem, ...prev.todo],
+        [currentColumnId]: [newItem, ...prev[currentColumnId]],
       }));
     }
+
+    setModalOpen(false);
+    setTitle("");
+    setText("");
+    setCurrentColumnId(null);
   };
 
   const deleteTodo = (taskId: string) => {
@@ -162,7 +170,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full flex flex-col gap-5 items-center justify-center bg-lightBg p-3 md:p-12">
-      <div className="w-full flex justify-end">
+      <div className="w-full flex md:gap-60 justify-around">
+        <h2 className="text-xl md:text-3xl font-bold capitalize my-4">
+          Fred&apos;s Taskboard
+        </h2>
         <ThemeToggle />
       </div>
       <DndContext
@@ -195,9 +206,10 @@ export default function Home() {
                   : "Done"
               }
               items={tasks}
-              onAddItem={
-                columnId === "todo" ? () => setModalOpen(true) : undefined
-              }
+              onAddItem={() => {
+                setCurrentColumnId(columnId as keyof BoxesState);
+                setModalOpen(true);
+              }}
             >
               {tasks.map((task: TaskItem) => (
                 <Card

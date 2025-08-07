@@ -26,13 +26,15 @@ const Card = ({
   return (
     <div
       style={style}
-      className="w-xs flex flex-col justify-center bg-background p-4 my-4 rounded-2xl shadow min-h-[120px] border border-[#dedede]"
+      className="w-[280px] flex flex-col justify-center bg-background p-4 my-4 rounded-2xl shadow min-h-[120px] border border-[#dedede]"
       {...attributes}
       {...listeners}
       ref={setNodeRef}
     >
       <section style={{ touchAction: "none" }}>
-        <h1 className="w-full font-bold text-xl md:text-2xl mb-2">{title}</h1>
+        <h1 className="w-full font-lato font-bold text-lg md:text-xl mb-2">
+          {title}
+        </h1>
         <p className="w-full whitespace-pre-line font-normal text-base md:text-lg">
           {text}
         </p>

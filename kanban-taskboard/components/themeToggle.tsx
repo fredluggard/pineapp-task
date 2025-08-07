@@ -31,7 +31,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="text-sm font-medium p-4 bg-darkBg text-foreground rounded-2xl "
+      className="h-13 text-sm font-medium py-1 px-3 bg-darkBg text-foreground rounded-2xl "
     >
       {darkMode ? "Light" : "Dark"} Mode
     </button>
