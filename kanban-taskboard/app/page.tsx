@@ -170,7 +170,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen w-full flex flex-col gap-5 items-center justify-center bg-lightBg p-3 md:p-12">
-      <div className="w-full flex md:gap-60 justify-around">
+      <div className="w-full flex md:gap-60 justify-between">
         <h2 className="text-xl md:text-3xl font-bold capitalize my-4">
           Fred&apos;s Taskboard
         </h2>
@@ -193,7 +193,7 @@ export default function Home() {
         }}
         onDragCancel={() => setActiveItem(null)}
       >
-        <div className="relative flex flex-col md:flex-row gap-4 w-full max-w-6xl">
+        <div className="relative flex flex-col md:flex-row gap-4 w-full">
           {Object.entries(columns).map(([columnId, tasks]) => (
             <Column
               key={columnId}
